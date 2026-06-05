@@ -14,7 +14,7 @@ while True:
     else:
         print("Nome Inválido!")
         
-tamanho = (800,200)
+tamanho = (1000,700)
 pygame.display.set_caption("Iron Man de Pensamento Computacional")
 icone  = pygame.image.load("bases/icone.png")
 pygame.display.set_icon(icone)
