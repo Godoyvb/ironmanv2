@@ -14,7 +14,7 @@ while True:
     else:
         print("Nome Inválido!")
         
-tamanho = (800,200)
+tamanho = (1000,700)
 pygame.display.set_caption("Iron Man de Pensamento Computacional")
 icone  = pygame.image.load("assets/icone.png")
 pygame.display.set_icon(icone)
@@ -23,13 +23,13 @@ tela = pygame.display.set_mode( tamanho )
 branco = (255, 255, 255)
 preto = (0, 0, 0)
 
-fundo = pygame.image.load("assets/background.jpg")
+fundo = pygame.image.load("assets/campofundo.png")
 fundoDead = pygame.image.load("assets/backgroundDead.jpg")
 fundoStart = pygame.image.load("assets/backgroundStart.jpg")
 
-iron = pygame.image.load("assets/IronMan.png")
+iron = pygame.image.load("assets/a.png")
 iron = pygame.transform.scale(iron, (116,51))
-missel = pygame.image.load("assets/missile.png")
+missel = pygame.image.load("assets/bola.png")
 missel = pygame.transform.scale(missel, (125,25))
 missileSound = pygame.mixer.Sound("assets/missile.wav")
 explosaoSound = pygame.mixer.Sound("assets/explosao.wav")
@@ -78,12 +78,12 @@ def jogar():
         posicaoYPersona = posicaoYPersona + movimentoYPersona            
         if posicaoXPersona < 0 :
             posicaoXPersona = 0
-        elif posicaoXPersona > 685:
-            posicaoXPersona = 685
+        elif posicaoXPersona > 700:
+            posicaoXPersona = 1000
         if posicaoYPersona < 0 :
             posicaoYPersona = 0
-        elif posicaoYPersona > 150:
-            posicaoYPersona = 150
+        elif posicaoYPersona > 1000:
+            posicaoYPersona = 700
             
             
         posicaoXMissel = posicaoXMissel - velocidadeMissel
@@ -92,17 +92,17 @@ def jogar():
             posicaoXMissel = 800
             pontos = pontos + 1
             velocidadeMissel = velocidadeMissel + 1
-            posicaoYMissel = random.randint(0,200)
+            posicaoYMissel = random.randint(0,700)
                             
         tela.fill(branco)
         tela.blit(fundo, (fundoMov1,0) )
         tela.blit(fundo, (fundoMov2,0) )
         fundoMov1 -= 1
-        fundoMov2 -= 1
-        if fundoMov1 <= -1129:
-            fundoMov1 = 1129
-        elif fundoMov2 <= -1129:
-            fundoMov2 = 1129
+        fundoMov2 -= 0
+        if fundoMov1 <= 0:
+            fundoMov1 = 0
+        elif fundoMov2 <= 0:
+            fundoMov2 = 0
         
         
         tela.blit(iron, (posicaoXPersona,posicaoYPersona))
