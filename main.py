@@ -16,13 +16,14 @@ while True:
         
 tamanho = (1000,700)
 pygame.display.set_caption("Iron Man de Pensamento Computacional")
-icone  = pygame.image.load("assets/icone.png")
+icone  = pygame.image.load("bases/icone.png")
 pygame.display.set_icon(icone)
 relogio = pygame.time.Clock()
 tela = pygame.display.set_mode( tamanho ) 
 branco = (255, 255, 255)
 preto = (0, 0, 0)
 
+<<<<<<< HEAD
 fundo = pygame.image.load("assets/campofundo.png")
 fundoDead = pygame.image.load("assets/backgroundDead.jpg")
 fundoStart = pygame.image.load("assets/backgroundStart.jpg")
@@ -30,10 +31,19 @@ fundoStart = pygame.image.load("assets/backgroundStart.jpg")
 iron = pygame.image.load("assets/a.png")
 iron = pygame.transform.scale(iron, (116,51))
 missel = pygame.image.load("assets/bola.png")
+=======
+fundo = pygame.image.load("bases/background.jpg")
+fundoDead = pygame.image.load("bases/backgroundDead.jpg")
+fundoStart = pygame.image.load("bases/backgroundStart.jpg")
+
+iron = pygame.image.load("bases/IronMan.png")
+iron = pygame.transform.scale(iron, (116,51))
+missel = pygame.image.load("bases/missile.png")
+>>>>>>> 6e43de5f5e525e93e7be95ac13158f6964255688
 missel = pygame.transform.scale(missel, (125,25))
-missileSound = pygame.mixer.Sound("assets/missile.wav")
-explosaoSound = pygame.mixer.Sound("assets/explosao.wav")
-pygame.mixer.music.load("assets/ironsound.mp3")
+missileSound = pygame.mixer.Sound("bases/missile.wav")
+explosaoSound = pygame.mixer.Sound("bases/explosao.wav")
+pygame.mixer.music.load("bases/ironsound.mp3")
 fonteMenu = pygame.font.SysFont("comicsans",18)
 
 def jogar():
