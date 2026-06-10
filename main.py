@@ -1,6 +1,7 @@
 import pygame
 import random
 from recursos.funcoes import inicializarBancoDeDados, limpar_tela, escreverDados, maior_pontuador
+from recursos.trabalho import pausar_jogo
 
 limpar_tela()
 inicializarBancoDeDados()
@@ -15,32 +16,23 @@ while True:
         print("Nome Inválido!")
         
 tamanho = (1000,700)
-pygame.display.set_caption("Iron Man de Pensamento Computacional")
+pygame.display.set_caption("Goleirão do Curintia de Pensamento Computacional")
 icone  = pygame.image.load("bases/icone.png")
 pygame.display.set_icon(icone)
 relogio = pygame.time.Clock()
 tela = pygame.display.set_mode( tamanho ) 
 branco = (255, 255, 255)
 preto = (0, 0, 0)
+amarelo = (255, 221, 64)
 
-<<<<<<< HEAD
-fundo = pygame.image.load("assets/campofundo.png")
-fundoDead = pygame.image.load("assets/backgroundDead.jpg")
-fundoStart = pygame.image.load("assets/backgroundStart.jpg")
-
-iron = pygame.image.load("assets/a.png")
-iron = pygame.transform.scale(iron, (116,51))
-missel = pygame.image.load("assets/bola.png")
-=======
-fundo = pygame.image.load("bases/background.jpg")
+fundo = pygame.image.load("bases/campofundo.png")
 fundoDead = pygame.image.load("bases/backgroundDead.jpg")
 fundoStart = pygame.image.load("bases/backgroundStart.jpg")
 
-iron = pygame.image.load("bases/IronMan.png")
-iron = pygame.transform.scale(iron, (116,51))
-missel = pygame.image.load("bases/missile.png")
->>>>>>> 6e43de5f5e525e93e7be95ac13158f6964255688
-missel = pygame.transform.scale(missel, (125,25))
+goleiro = pygame.image.load("bases/hugosouza.png")
+goleiro = pygame.transform.scale(goleiro, (116,51))
+bola = pygame.image.load("bases/bola.png")
+bola = pygame.transform.scale(bola, (125,25))
 missileSound = pygame.mixer.Sound("bases/missile.wav")
 explosaoSound = pygame.mixer.Sound("bases/explosao.wav")
 pygame.mixer.music.load("bases/ironsound.mp3")
@@ -54,9 +46,9 @@ def jogar():
     movimentoXPersona  = 0
     movimentoYPersona  = 0
     velocidadeMovPersona = 5
-    posicaoXMissel = 800
-    posicaoYMissel = 100
-    velocidadeMissel = 2
+    posicaoXBola = 800
+    posicaoYBola = 100
+    velocidadeBola = 2
     pontos = 0
     pygame.mixer.Sound.play(missileSound)
     pygame.mixer.music.play(-1)
@@ -64,8 +56,14 @@ def jogar():
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
+                pygame.quit()
                 quit()
                 movimentoXPersona = 0
+            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
+                pygame.quit()
+                quit()
+            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_SPACE:
+                pausar_jogo(tela, fonteMenu, branco, preto, relogio)
             elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_UP:
                 movimentoYPersona = -velocidadeMovPersona
             elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_DOWN:
@@ -74,14 +72,6 @@ def jogar():
                 movimentoYPersona = 0
             elif evento.type == pygame.KEYUP and evento.key == pygame.K_DOWN:
                 movimentoYPersona = 0
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_RIGHT:
-                movimentoXPersona = velocidadeMovPersona
-            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_LEFT:
-                movimentoXPersona = -velocidadeMovPersona
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_RIGHT:
-                movimentoXPersona = 0
-            elif evento.type == pygame.KEYUP and evento.key == pygame.K_LEFT:
-                movimentoXPersona = 0
                 
         
         posicaoXPersona = posicaoXPersona + movimentoXPersona          
@@ -96,13 +86,13 @@ def jogar():
             posicaoYPersona = 700
             
             
-        posicaoXMissel = posicaoXMissel - velocidadeMissel
-        if posicaoXMissel < -125:
+        posicaoXBola = posicaoXBola - velocidadeBola
+        if posicaoXBola < -125:
             pygame.mixer.Sound.play(missileSound)
-            posicaoXMissel = 800
+            posicaoXBola = 800
             pontos = pontos + 1
-            velocidadeMissel = velocidadeMissel + 1
-            posicaoYMissel = random.randint(0,700)
+            velocidadeBola = velocidadeBola + 1
+            posicaoYBola = random.randint(0,700)
                             
         tela.fill(branco)
         tela.blit(fundo, (fundoMov1,0) )
@@ -114,25 +104,29 @@ def jogar():
         elif fundoMov2 <= 0:
             fundoMov2 = 0
         
+        raioSol = 22 + int(8 * abs(((pygame.time.get_ticks() // 80) % 20) - 10) / 10)
+        pygame.draw.circle(tela, amarelo, (950, 55), raioSol)
         
-        tela.blit(iron, (posicaoXPersona,posicaoYPersona))
-        tela.blit( missel, (posicaoXMissel, posicaoYMissel) )
+        tela.blit(goleiro, (posicaoXPersona,posicaoYPersona))
+        tela.blit( bola, (posicaoXBola, posicaoYBola) )
         texto = fonteMenu.render("Pontos: "+str(pontos), True, branco)
         tela.blit(texto, (700,15))
+        textoPause = fonteMenu.render("Press Space to Pause Game.", True, branco)
+        tela.blit(textoPause, (tamanho[0] - textoPause.get_width() - 15, tamanho[1] - textoPause.get_height() - 15))
             
         pixelsPersonaX = list(range(posicaoXPersona, posicaoXPersona+116))
         pixelsPersonaY = list(range(posicaoYPersona, posicaoYPersona+51))
-        pixelsMisselX = list(range(posicaoXMissel, posicaoXMissel + 125))
-        pixelsMisselY = list(range(posicaoYMissel, posicaoYMissel + 25))
-        if  len( list( set(pixelsMisselY).intersection(set(pixelsPersonaY))) ) > dificuldade:
-            if len( list( set(pixelsMisselX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
+        pixelsBolaX = list(range(posicaoXBola, posicaoXBola + 125))
+        pixelsBolaY = list(range(posicaoYBola, posicaoYBola + 25))
+        if  len( list( set(pixelsBolaY).intersection(set(pixelsPersonaY))) ) > dificuldade:
+            if len( list( set(pixelsBolaX).intersection(set(pixelsPersonaX))   ) )  > dificuldade:
                 escreverDados(nome, pontos)
                 dead()
                 
             else:
-                print("Ainda Vivo, mas por pouco!")
+                print("Foi gol, mas por pouco!")
         else:
-            print("Ainda Vivo")
+            print("Gol!")
         
         
         pygame.display.update()
@@ -143,19 +137,18 @@ def dead():
     pygame.mixer.Sound.play(explosaoSound)
     larguraButtonStart = 150
     alturaButtonStart  = 40
-    larguraButtonQuit = 150
-    alturaButtonQuit  = 40
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
+                pygame.quit()
                 quit()
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if startButton.collidepoint(evento.pos):
                     larguraButtonStart = 140
                     alturaButtonStart  = 35
-                if quitButton.collidepoint(evento.pos):
-                    larguraButtonQuit = 140
-                    alturaButtonQuit  = 35
 
                 
             elif evento.type == pygame.MOUSEBUTTONUP:
@@ -165,21 +158,12 @@ def dead():
                     larguraButtonStart = 150
                     alturaButtonStart  = 40
                     jogar()
-                if quitButton.collidepoint(evento.pos):
-                    #pygame.mixer.music.play(-1)
-                    larguraButtonQuit = 150
-                    alturaButtonQuit  = 40
-                    quit()
             
         tela.fill(branco)
         tela.blit(fundoDead, (0,0))
         startButton = pygame.draw.rect(tela, branco, (10,10, larguraButtonStart, alturaButtonStart), border_radius=15)
         startTexto = fonteMenu.render("Iniciar Game", True, preto)
         tela.blit(startTexto, (25,12))
-        
-        quitButton = pygame.draw.rect(tela, branco, (10,60, larguraButtonQuit, alturaButtonQuit), border_radius=15)
-        quitTexto = fonteMenu.render("Sair do Game", True, preto)
-        tela.blit(quitTexto, (25,62))
 
 
         pygame.display.update()
@@ -190,19 +174,18 @@ def dead():
 def start():
     larguraButtonStart = 150
     alturaButtonStart  = 40
-    larguraButtonQuit = 150
-    alturaButtonQuit  = 40
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_ESCAPE:
+                pygame.quit()
                 quit()
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if startButton.collidepoint(evento.pos):
                     larguraButtonStart = 140
                     alturaButtonStart  = 35
-                if quitButton.collidepoint(evento.pos):
-                    larguraButtonQuit = 140
-                    alturaButtonQuit  = 35
 
                 
             elif evento.type == pygame.MOUSEBUTTONUP:
@@ -212,21 +195,12 @@ def start():
                     larguraButtonStart = 150
                     alturaButtonStart  = 40
                     jogar()
-                if quitButton.collidepoint(evento.pos):
-                    #pygame.mixer.music.play(-1)
-                    larguraButtonQuit = 150
-                    alturaButtonQuit  = 40
-                    quit()
             
         tela.fill(branco)
         tela.blit(fundoStart, (0,0))
         startButton = pygame.draw.rect(tela, branco, (10,10, larguraButtonStart, alturaButtonStart), border_radius=15)
         startTexto = fonteMenu.render("Iniciar Game", True, preto)
         tela.blit(startTexto, (25,12))
-        
-        quitButton = pygame.draw.rect(tela, branco, (10,60, larguraButtonQuit, alturaButtonQuit), border_radius=15)
-        quitTexto = fonteMenu.render("Sair do Game", True, preto)
-        tela.blit(quitTexto, (25,62))
         texto = fonteMenu.render(f"The Best - {nome_maior} - {maior_pontos} - { dataJogada} ", True, branco)
         tela.blit(texto, (480,15))
         
