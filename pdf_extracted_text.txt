@@ -1,0 +1,91 @@
+pages: 2
+--- PAGE 1 ---
+ 
+ 
+ 
+ 
+🎮 Desenvolvimento de Jogo com Pygame  
+A solução consiste em adaptações no jogo Iron Man  (disponível no git do professor na url: 
+https://github.com/profmarcossantos/IronManV2 ). A solução desenvolvida deve ser 
+implementada com uma temática própria e única , seguindo a base  criada durante as aulas . As 
+indicações abaixo devem ser implementadas pelo desenvolvedor:  
+🔧 Parte 1: Configuração e Controle de Versão (Git)  
+1. [ ] Desenvolva o jogo utilizando a linguagem Python  e a biblioteca Pygame . 
+2. [ ] Todos os recursos (imagens, sons, ícones, fontes, etc.) devem estar organizados em uma 
+pasta chamada bases /. 
+3. [ ] O repositório do projeto deve conter pelo menos 5 commits , com mensagens descritivas 
+sobre as etapas implementadas.  
+4. [ ] Gere um executável do jogo  utilizando o comando python setup.py build e inclua -o no 
+commit final.  
+5. [ ] No arquivo README , insira:  
+o Nome completo do s desenvolvedor es; 
+o RAs (Registro Acadêmico);  
+o Pequena descrição da história do jogo;  
+o Tecnologias utilizadas.  
+6. [ ] Compartilhe o projeto com o professor e com um colega (pode ser o integrante da dupla) . 
+Esse colega deve:  
+o Fazer um commit no seu projeto . 
+⚠️ Este item conta ponto para o colaborador , não para o dono do projeto . 
+ 
+ 
+ Atividade Avaliativa  (DUPLAS ) 
+Disciplina : Pensamento Computacional  Data  de Entrega : 10/06/2026 
+                                         
+Professor: Marcos Roberto dos Santos  Descrição:  
+Compartilhar o projeto através do GitHub com o 
+usuário marcos.santos@atitus.edu.br  ou o 
+usuário profmarcossanto s.  
+ 
+Objetivo:  
+Desenvolver novas soluções baseado em 
+linguagens de programação de alto nível , 
+aplicando conhecimentos adquiridos em sala de 
+aula em um projeto prático .  
+Avaliação Bimestral  
+ 
+ 
+ 
+(2,0) Projeto Game  
+(2,0) Prova  
+ 
+ 
+
+--- PAGE 2 ---
+ 
+ 
+ 
+🎮 Parte 2: Funcionalidades do Jogo  
+7. [ ] Crie uma nova função útil para o jogo em um arquivo com o nome trabalho .py, dentro da 
+pasta Recursos/. Importe -a no arquivo principal usando from ... import.  
+8. [ ] Configure o tamanho da tela do jogo para 1000 x 700 pixels . 
+9. [ ] Após o jogador digitar seu nome, exiba uma tela de boas -vindas  (tela nova) , com:  
+• O nome do jogador;  
+• Uma explicação rápida sobre a mecânica do jogo;  
+• Um único botão para iniciar a partida.  Não pode ter o botão de fecha r, usarmos o X no 
+canto di reito da tela.  
+• O joga dor com maior número de pontos, a data e a hora  da par tida.  
+10. [ ] Substitua todos os assets  (agora base)  do projeto : imagens de fundo, personagem, inimigos, 
+ícones, trilhas sonoras, etc.  
+11. [ ] Implemente um modo de pausa : 
+• Ao pressionar a tecla Espaço (Space) , o jogo deve ser pausado;  
+• Exiba a palavra “ PAUSE ” no centro da tela;  
+• Pressione novamente para continuar o jogo.  
+12. [ ] Em algum lugar da tela , exiba discretamente a mensagem:  
+• Press Space to Pause Game.  
+13. [ ] O personagem deve se mover somente em um dos eixos : X ou Y  (não ambos).  
+14. [ ] Adicione pelo menos um objeto decorativo  no cenário que se movimente de forma 
+randômica , sem interagir com o jogador.  
+15. [ ] Ao salvar o log da partida, registre:  
+• Nome  
+• Pontuação;  
+• Data;  
+• Hora (formato HH:MM:SS) . 
+16. [ ] Desenhe um círculo amarelo  (simulando o sol) em um dos cantos da tela:  
+• Ele deve pulsar (aumentar e diminuir de tamanho lentamente).  
+• Pode ser adaptado com outro tema (lua, engrenagem, etc).  
+17. [ ] O arquivo de log deve se chamar log.dat . 
+18. [ ] Na tela de fim de jogo (morte) : 
+• Mostre o competidor com maior n úmero de pontos.  
+19. [ ] Utilize a biblioteca pyttsx3  em algum momento da aplicação.  
+20. [ ] Ao pressionar ESC ele deve fechar o jogo completamente.  
+
