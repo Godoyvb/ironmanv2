@@ -9,7 +9,7 @@ pygame.init()
 
 tamanho = (1000,700)
 pygame.display.set_caption("Pior zagueiro do mundo")
-icone  = pygame.image.load("bases/icone.png")
+ice = pygame.image.load("bases/icone.ico")
 pygame.display.set_icon(icone)
 relogio = pygame.time.Clock()
 tela = pygame.display.set_mode( tamanho ) 
